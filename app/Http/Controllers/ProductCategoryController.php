@@ -32,7 +32,9 @@ class ProductCategoryController extends Controller
             'name'        => 'required|string|max:255',
             'slug'        => 'required|string|max:255',
             'description' => 'required',
+            'image_url'   => 'nullable|url', // tambahkan ini
         ]);
+
         
         /**
          * Jika validasi gagal,
@@ -50,12 +52,10 @@ class ProductCategoryController extends Controller
         $category->slug        = $request->slug;
         $category->description = $request->description;
         
-        if ($request->hasFile('image')) {
-            $image      = $request->file('image');
-            $imageName  = time() . '_' . $image->getClientOriginalName();
-            $imagePath  = $image->storeAs('uploads/categories', $imageName, 'public');
-            $category->image = $imagePath;
+        if ($request->filled('image_url')) {
+            $category->image = $request->image_url;
         }
+
         
         $category->save();
         
@@ -90,6 +90,7 @@ class ProductCategoryController extends Controller
             'name'        => 'required|string|max:255',
             'slug'        => 'required|string|max:255',
             'description' => 'required',
+            'image_url' => 'nullable|url',
         ]);
     
         /**
@@ -107,18 +108,10 @@ class ProductCategoryController extends Controller
         $category->slug        = $request->slug;
         $category->description = $request->description;
     
-        if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
-            if ($category->image && \Storage::disk('public')->exists($category->image)) {
-                \Storage::disk('public')->delete($category->image);
-            }
-    
-            // Simpan gambar baru
-            $image     = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $imagePath = $image->storeAs('uploads/categories', $imageName, 'public');
-            $category->image = $imagePath;
+        if ($request->filled('image_url')) {
+            $category->image = $request->image_url;
         }
+
     
         $category->save();
     

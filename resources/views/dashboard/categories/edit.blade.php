@@ -27,11 +27,11 @@
 
         @if($category->image)
             <div class="mb-3">
-                <img src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}" class="w-32 h-32 object-cover rounded">
+                <img src="{{ $category->image }}" alt="{{ $category->name }}" class="w-32 h-32 object-cover rounded">
             </div>
         @endif
 
-        <flux:input type="file" label="Image" name="image" class="mb-3" />
+        <flux:input label="URL Gambar" name="image_url" type="url" value="{{ $category->image }}" class="mb-3" />
 
         <flux:separator />
 

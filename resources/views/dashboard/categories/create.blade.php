@@ -21,7 +21,7 @@
         <flux:input label="Name" name="name" class="mb-3" />
         <flux:input label="Slug" name="slug" class="mb-3" />
         <flux:textarea label="Description" name="description" class="mb-3" />
-        <flux:input type="file" label="Image" name="image" class="mb-3" />
+        <flux:input label="URL Gambar" name="image_url" type="url" class="mb-3" />
 
         <flux:separator />
 
